@@ -1,0 +1,9 @@
+{
+  "name": "Pool Coordinator",
+  "content_in_root": false,
+  "filename": "pool_coordinator",
+  "homeassistant": "2024.1.0",
+  "render_readme": true,
+  "country": ["US"],
+  "domains": ["sensor"]
+}

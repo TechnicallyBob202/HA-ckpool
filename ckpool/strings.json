@@ -1,0 +1,26 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Pool Coordinator Setup",
+        "description": "Configure the connection to your mining pool (ckpool with ckstats API).",
+        "data": {
+          "pool_host": "Pool Host",
+          "pool_port": "Pool Port"
+        },
+        "data_description": {
+          "pool_host": "Hostname or IP address of your ckpool server (default: localhost)",
+          "pool_port": "Port number for ckstats API (default: 5000)"
+        }
+      }
+    },
+    "error": {
+      "invalid_port": "Port must be between 1 and 65535",
+      "invalid_host": "Host cannot be empty",
+      "pool_connection_failed": "Failed to connect to pool API. Verify host and port are correct."
+    },
+    "abort": {
+      "already_configured": "Pool Coordinator integration is already configured"
+    }
+  }
+}

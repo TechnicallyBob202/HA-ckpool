@@ -1,0 +1,14 @@
+{
+  "domain": "pool_coordinator",
+  "name": "Pool Coordinator",
+  "icon": "mdi:database",
+  "codeowners": ["@TechnicallyBob202"],
+  "config_flow": true,
+  "documentation": "https://github.com/TechnicallyBob202/HA-pool-coordinator",
+  "issue_tracker": "https://github.com/TechnicallyBob202/HA-pool-coordinator/issues",
+  "integration_type": "hub",
+  "iot_class": "local_polling",
+  "requirements": ["aiohttp"],
+  "version": "1.0.0",
+  "homeassistant": "2024.1.0"
+}
