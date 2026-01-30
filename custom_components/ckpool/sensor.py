@@ -59,6 +59,26 @@ def format_hashrate(hashrate_hs: float | int) -> str:
         return "0 H/s"
 
 
+def format_difficulty(difficulty: float | int) -> str:
+    """Format difficulty with dynamic units (T, G, M, K, or raw)."""
+    try:
+        diff = float(difficulty)
+        
+        # Define thresholds and units
+        if diff >= 1_000_000_000_000:  # >= 1 T
+            return f"{diff / 1_000_000_000_000:.2f}T"
+        elif diff >= 1_000_000_000:  # >= 1 G
+            return f"{diff / 1_000_000_000:.2f}G"
+        elif diff >= 1_000_000:  # >= 1 M
+            return f"{diff / 1_000_000:.2f}M"
+        elif diff >= 1_000:  # >= 1 K
+            return f"{diff / 1_000:.2f}K"
+        else:  # < 1 K, show as raw number
+            return f"{diff:.2f}"
+    except (ValueError, TypeError):
+        return "0"
+
+
 def _format_timestamp(timestamp_ms: int | float) -> str:
     """Format millisecond timestamp to readable format."""
     if not timestamp_ms or timestamp_ms == 0:
@@ -169,6 +189,7 @@ POOL_SENSOR_TYPES: tuple[CKPoolSensorEntityDescription, ...] = (
     CKPoolSensorEntityDescription(
         key="pool_difficulty",
         name="Network Difficulty",
+        native_unit_of_measurement="%",
         state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:target",
         value_fn=lambda data: data.get("diff", 0),
@@ -176,9 +197,8 @@ POOL_SENSOR_TYPES: tuple[CKPoolSensorEntityDescription, ...] = (
     CKPoolSensorEntityDescription(
         key="pool_best_share",
         name="Best Share Difficulty",
-        state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:star",
-        value_fn=lambda data: data.get("bestshare", 0),
+        value_fn=lambda data: format_difficulty(data.get("bestshare", 0)),
     ),
     CKPoolSensorEntityDescription(
         key="pool_shares_accepted",
@@ -261,9 +281,8 @@ USER_SENSOR_TYPES: tuple[CKPoolSensorEntityDescription, ...] = (
     CKPoolSensorEntityDescription(
         key="user_best_share",
         name="User Best Share Difficulty",
-        state_class=SensorStateClass.MEASUREMENT,
         icon="mdi:star",
-        value_fn=lambda data: data.get("bestEver", 0),
+        value_fn=lambda data: format_difficulty(data.get("bestEver", 0)),
     ),
     CKPoolSensorEntityDescription(
         key="user_workers",
