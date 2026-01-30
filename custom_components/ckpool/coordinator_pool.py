@@ -1,4 +1,4 @@
-"""Pool coordinator for Pool Coordinator integration (ckstats)."""
+"""Pool coordinator for CKPool integration (ckstats API)."""
 from __future__ import annotations
 
 import asyncio
@@ -63,7 +63,7 @@ class PoolCoordinator(DataUpdateCoordinator):
             )
         
         _LOGGER.info(
-            "Pool API connection established: %s:%d",
+            "CKPool API connection established: %s:%d",
             self.host,
             self.port,
         )

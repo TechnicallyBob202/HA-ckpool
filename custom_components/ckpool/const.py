@@ -1,7 +1,7 @@
-"""Constants for the Pool Coordinator integration."""
+"""Constants for the CKPool integration."""
 from typing import Final
 
-DOMAIN: Final = "pool_coordinator"
+DOMAIN: Final = "ckpool"
 
 # ============================================================================
 # Pool (ckstats) HTTP CONFIGURATION

@@ -1,7 +1,7 @@
 {
-  "name": "Pool Coordinator",
+  "name": "CKPool",
   "content_in_root": false,
-  "filename": "pool_coordinator",
+  "filename": "ckpool",
   "homeassistant": "2024.1.0",
   "render_readme": true,
   "country": ["US"],

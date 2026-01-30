@@ -1,14 +1,14 @@
 {
-  "domain": "pool_coordinator",
-  "name": "Pool Coordinator",
-  "icon": "mdi:database",
+  "domain": "ckpool",
+  "name": "CKPool",
+  "icon": "mdi:server-network",
   "codeowners": ["@TechnicallyBob202"],
   "config_flow": true,
-  "documentation": "https://github.com/TechnicallyBob202/HA-pool-coordinator",
-  "issue_tracker": "https://github.com/TechnicallyBob202/HA-pool-coordinator/issues",
+  "documentation": "https://github.com/TechnicallyBob202/HA-ckpool",
+  "issue_tracker": "https://github.com/TechnicallyBob202/HA-ckpool/issues",
   "integration_type": "hub",
   "iot_class": "local_polling",
   "requirements": ["aiohttp"],
-  "version": "1.0.0",
+  "version": "0.1.1",
   "homeassistant": "2024.1.0"
 }

@@ -1,4 +1,4 @@
-"""The Pool Coordinator integration."""
+"""The CKPool integration."""
 from __future__ import annotations
 
 import logging
@@ -7,7 +7,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import Platform
 from homeassistant.core import HomeAssistant
 
-from .const import CONF_POOL_HOST, CONF_POOL_PORT, DOMAIN
+from .const import DOMAIN
 from .coordinator_pool import PoolCoordinator
 
 _LOGGER = logging.getLogger(__name__)
@@ -16,8 +16,8 @@ PLATFORMS: list[Platform] = [Platform.SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up Pool Coordinator from a config entry."""
-    _LOGGER.info("Setting up Pool Coordinator integration")
+    """Set up CKPool from a config entry."""
+    _LOGGER.info("Setting up CKPool integration")
     
     try:
         # Setup Pool (ckstats API polling)
@@ -25,11 +25,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
         coordinator._config_entry_id = entry.entry_id
         await coordinator.async_config_entry_first_refresh()
     
-    except RuntimeError as err:
-        _LOGGER.error("Failed to connect to pool API: %s", err)
-        return False
     except Exception as err:  # pylint: disable=broad-except
-        _LOGGER.error("Unexpected error during setup: %s", err)
+        _LOGGER.error("Failed to set up CKPool: %s", err)
         return False
     
     # Store coordinator

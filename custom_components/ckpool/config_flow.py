@@ -1,10 +1,9 @@
-"""Config flow for Pool Coordinator integration."""
+"""Config flow for CKPool integration."""
 from __future__ import annotations
 
 import logging
 from typing import Any
 
-import aiohttp
 import voluptuous as vol
 
 from homeassistant import config_entries
@@ -27,15 +26,15 @@ class PoolConnectionFailed(HomeAssistantError):
     """Error to indicate pool connection failed."""
 
 
-class PoolCoordinatorConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
-    """Handle a config flow for Pool Coordinator."""
+class CKPoolConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
+    """Handle a config flow for CKPool."""
 
     VERSION = 1
 
     async def async_step_user(
         self, user_input: dict[str, Any] | None = None
     ) -> FlowResult:
-        """Handle the initial step."""
+        """Handle the initial step - configure pool connection."""
         errors: dict[str, str] = {}
         
         if user_input is not None:
@@ -53,6 +52,7 @@ class PoolCoordinatorConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             if not errors:
                 # Test connection to pool API
                 try:
+                    import aiohttp
                     url = f"http://{host}:{port}/api/health"
                     timeout = aiohttp.ClientTimeout(total=5)
                     
@@ -66,7 +66,7 @@ class PoolCoordinatorConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
             
             if not errors:
                 # Check if already configured
-                await self.async_set_unique_id(f"pool_{host}_{port}")
+                await self.async_set_unique_id(f"ckpool_{host}_{port}")
                 self._abort_if_unique_id_configured()
                 
                 # Store config and create entry
@@ -76,7 +76,7 @@ class PoolCoordinatorConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 }
                 
                 return self.async_create_entry(
-                    title=f"Pool ({host}:{port})",
+                    title=f"CKPool ({host}:{port})",
                     data=config_data,
                 )
         
